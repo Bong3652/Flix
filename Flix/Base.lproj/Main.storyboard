@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movies View Controller-->
+        <!--Flix-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MoviesViewController" customModule="Flix" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,9 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9gI-li-zyv">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9gI-li-zyv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="140" id="qpP-tr-8p1" customClass="MovieTableViewCell" customModule="Flix" customModuleProvider="target">
@@ -60,9 +59,15 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="9gI-li-zyv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="D6O-fG-igP"/>
+                            <constraint firstItem="9gI-li-zyv" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="bcz-Hc-7q2"/>
+                            <constraint firstItem="9gI-li-zyv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cqP-Vw-gyK"/>
+                            <constraint firstItem="9gI-li-zyv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="whH-cA-CRc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ccY-u8-svs"/>
+                    <navigationItem key="navigationItem" title="Flix" id="ccY-u8-svs"/>
                     <connections>
                         <outlet property="moviesTableView" destination="9gI-li-zyv" id="EJ9-rk-LDF"/>
                     </connections>
