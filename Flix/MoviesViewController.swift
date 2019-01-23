@@ -35,7 +35,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         loadingMoreView = movieUIActivityIndicatorView(frame: frame)
         loadingMoreView!.isHidden = true
         moviesTableView.addSubview(loadingMoreView!)
-        
+
         var insets = moviesTableView.contentInset
         insets.bottom += movieUIActivityIndicatorView.defaultHeight
         moviesTableView.contentInset = insets
@@ -71,6 +71,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             }
         }
         task.resume()
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,7 +100,28 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.posterImage.af_setImage(withURL: posterUrl!)
         cell.titleLabel.text = title
         cell.synopsisLabel.text = synap
+        
+        let layer = CAGradientLayer()
+        layer.frame = cell.layer.frame
+        layer.startPoint = CGPoint(x: 0, y: 0.5)
+        layer.endPoint = CGPoint(x: 1, y: 0.5)
+        layer.colors = [
+            UIColor.gray.cgColor,UIColor.cyan.cgColor]
+        cell.layer.insertSublayer(layer, at: 0)
+        //cell.backgroundColor = UIColor(red: 1, green: 0.5, blue: 0, alpha: 1)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        var frame = cell.contentView.frame
+
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
+            frame.origin.x = -100
+            cell.contentView.frame = frame
+        }) { (success) in
+            frame.origin.x = 0
+            cell.contentView.frame = frame
+        }
     }
     
     // Makes a network request to get updated data
@@ -131,16 +153,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             // Calculate the position of one screen length before the bottom of the results
             let scrollViewContentHeight = moviesTableView.contentSize.height
             let scrollOffsetThreshold = scrollViewContentHeight - moviesTableView.bounds.size.height
-            
+
             // When the user has scrolled past the threshold, start requesting
             if(scrollView.contentOffset.y > scrollOffsetThreshold && moviesTableView.isDragging) {
                 isMoreDataLoading = true
-                
+
                 // Update position of loadingMoreView, and start loading indicator
                 let frame = CGRect(x: 0, y: moviesTableView.contentSize.height, width: moviesTableView.bounds.size.width, height: movieUIActivityIndicatorView.defaultHeight)
                 loadingMoreView?.frame = frame
                 loadingMoreView!.startAnimating()
-                
+
                 // Code to load more results
                 loadMoreData()
             }
@@ -148,29 +170,29 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadMoreData() {
-        
+
         // ... Create the NSURLRequest (myRequest) ...
         // Configure session so that completion handler is executed on main UI thread
         let session = URLSession(configuration: URLSessionConfiguration.default,
                                  delegate:nil,
                                  delegateQueue:OperationQueue.main
         )
-        
+
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            
+
             // Update flag
             self.isMoreDataLoading = false
-            
+
             // Stop the loading indicator
             self.loadingMoreView!.stopAnimating()
-            
+
             // ... Use the new data to update the data source ...
-            
+
             // Reload the tableView now that there is new data
             self.moviesTableView.reloadData()
         })
         task.resume()
-        
+
     }
 
 
